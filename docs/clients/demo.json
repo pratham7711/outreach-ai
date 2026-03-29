@@ -1,0 +1,40 @@
+{
+  "_comment": "Sample client config. Copy this, rename to client-name.json, fill in values, then run: npx tsx webapp/scripts/provision-org.ts --config=docs/clients/your-client.json",
+  "orgName": "Demo Agency",
+  "adminEmail": "admin@demo.com",
+  "adminPassword": "change-me-on-first-login",
+  "features": {
+    "soundTracker": true,
+    "creatorPortal": false,
+    "aiBriefings": false,
+    "reports": true,
+    "csvExport": true,
+    "apiAccess": false
+  },
+  "nav": ["campaigns", "creators", "payouts", "analytics", "trackers", "lists", "clients"],
+  "branding": {
+    "primaryColor": "#6366f1",
+    "brandName": "Outreach AI",
+    "logoUrl": null,
+    "font": "Inter"
+  },
+  "limits": {
+    "maxCampaigns": 50,
+    "maxCreators": 500,
+    "maxUsers": 10
+  },
+  "platforms": {
+    "tiktok": true,
+    "instagram": true,
+    "youtube": true
+  },
+  "dashboard": [
+    "kpi_grid",
+    "views_over_time",
+    "platform_breakdown",
+    "top_posts",
+    "financial_summary",
+    "creator_performance"
+  ],
+  "plan": "pro"
+}

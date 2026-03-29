@@ -202,8 +202,8 @@ A **full-stack SaaS clone of CreatorCore** (https://www.creatorcore.co) — an i
 - [x] This master context file created
 
 ### What's In Progress
-- [ ] Landing page (claude-personal)
-- [ ] Webapp scaffolding + Prisma schema (claude-work)
+- [x] **Webapp (claude-work) — COMPLETE ✅** (finished 00:52 IST, March 12)
+- [x] **Landing page (claude-personal) — COMPLETE ✅** (finished 00:55 IST, March 12) — build passes
 
 ### What's Next
 - Deploy landing to Vercel
