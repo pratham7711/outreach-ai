@@ -1,5 +1,5 @@
 # Outreach AI — Master Implementation Plan
-> Generated: 2026-03-29 | Do NOT delete this file. Update it as decisions change.
+> Generated: 2026-03-29 | Last reviewed against code: 2026-03-30 | Do NOT delete this file. Update it as decisions change.
 
 ---
 
@@ -72,13 +72,15 @@ Evolved from a CreatorCore clone. The codebase references CreatorCore internally
 
 **Goal:** Proper permissions, plan limits, and audit trails before any new feature is built.
 
-- [ ] Replace `Organization.plan` string → `OrgPlanConfig` DB table (migrate from `PLANS` const)
+**Reality check as of 2026-03-30:** schema support for `OrgPlanConfig`, `UserInvite`, `ApiKey`, and the expanded `AuditLog` is already landed. Invite and API key routes/UI exist. Remaining work is consolidation, enforcement, and audit-log productization.
+
+- [~] Replace `Organization.plan` string → `OrgPlanConfig` DB table (migrate from `PLANS` const)
 - [ ] Extend `User` model: `permissionOverrides`, `isActive`, `lastLoginAt`, `lastLoginIp`, `invitedById`
-- [ ] Add `UserInvite` model + `POST /api/invites` + `/accept-invite` magic link flow
-- [ ] Add `ApiKey` model (SHA-256 hashed, shown once on creation)
-- [ ] Update `lib/rbac.ts` `resolvePermissions()` — per-user override evaluation, campaign-team-member scoping
-- [ ] Wire `logAudit()` into ALL mutating API routes (currently zero calls)
-- [ ] Extend `AuditLog` schema: `actorType`, `actorEmail`, `entityLabel`, `ipAddress`, `before`, `after`
+- [~] Add `UserInvite` model + `POST /api/invites` + `/accept-invite` flow
+- [x] Add `ApiKey` model (SHA-256 hashed, shown once on creation)
+- [~] Update `lib/rbac.ts` `resolvePermissions()` — override-ready scaffold landed; scoped resolution still pending
+- [~] Wire `logAudit()` into ALL mutating API routes (major admin routes now covered)
+- [x] Extend `AuditLog` schema: `actorType`, `actorEmail`, `entityLabel`, `ipAddress`, `before`, `after`
 - [ ] Build `/audit-log` dashboard page — filterable table + CSV export
 
 **New schema:** `OrgPlanConfig`, `UserInvite`, `ApiKey`
@@ -90,14 +92,16 @@ Evolved from a CreatorCore clone. The codebase references CreatorCore internally
 
 **Goal:** Support 4 campaign types with correct business logic and payout calculations.
 
+**Reality check as of 2026-03-30:** `CampaignType`, `campaignType`, `typeConfig`, and `enrollmentOpen` are already in schema and campaign creation/update APIs accept them. Remaining work is the actual type-specific workflows.
+
 Campaign types:
 1. **Budget-based** — fixed rate per post (e.g. $500/post)
 2. **View-based** — pay per view up to a cap (e.g. $1 per 1K views, max $2K)
 3. **Open community** — any creator can self-enroll
 4. **Private/invite-only** — org sends invites to specific creators
 
-- [ ] Add `CampaignType` enum to schema
-- [ ] Add `campaignType`, `typeConfig` (JSON), `enrollmentOpen` to `Campaign` model
+- [x] Add `CampaignType` enum to schema
+- [x] Add `campaignType`, `typeConfig` (JSON), `enrollmentOpen` to `Campaign` model
 - [ ] Add `CampaignInvite` model (PRIVATE_INVITE type)
 - [ ] Add `ViewLedger` model (VIEW_BASED type — point-in-time snapshots for payout calculation)
 - [ ] Extend campaign creation wizard with type selector + conditional config forms
